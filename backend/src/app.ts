@@ -1,8 +1,14 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import { appV1Router } from './routes';
-import { Logger, SendResponse } from './core';
+import { initDB, Logger, SendResponse } from './core';
 
 export const startServer = (app: Express) => {
+    initDB().then(() => {
+        Logger.info('Database connected successfully');
+    }).catch((err) => {
+        Logger.error('Database connection failed:', err);
+        process.exit(1);
+    });
     // middleware
     app.use(express.json());
 

@@ -14,6 +14,7 @@ const createUser = async (req: Request, res: Response) => {
     };
 
     const newUser = await UserService.createUser(payload);
+
     if (!newUser || !newUser.rowCount) {
         return SendResponse.internalServerError({
             res,
