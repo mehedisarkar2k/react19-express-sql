@@ -6,6 +6,8 @@ import { Home, Menu, Network, Table, X } from 'lucide-react'
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
 
+  console.log('running something')
+
   return (
     <>
       <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">

@@ -7,7 +7,7 @@
     "backend"
   ],
   "scripts": {
-    "dev": "yarn workspaces foreach -Ap run dev",
+    "dev": "yarn workspaces foreach -Apiv run dev",
     "dev:frontend": "yarn workspace frontend dev",
     "dev:backend": "yarn workspace backend run:dev",
     "install:all": "yarn install",
