@@ -1,0 +1,10 @@
+{
+  "name": "backend",
+  "packageManager": "yarn@4.11.0",
+  "scripts": {
+    "run:mongo": "docker run -d -p 27017:27017 --name mongodb mongo:latest",
+    "kill:mongo": "docker rm -f mongodb",
+    "run:dev": "",
+    "start": "node index.js"
+  }
+}
