@@ -8,4 +8,6 @@ export const EnvSchema = z.object({
     DB_USER: z.string().min(1, "DB_USER is required"),
     DB_PASSWORD: z.string().min(1, "DB_PASSWORD is required"),
     DB_NAME: z.string().min(1, "DB_NAME is required"),
+    JWT_SECRET_KEY: z.string().min(1, "JWT_SECRET_KEY is required"),
+    REFRESH_TOKEN_SECRET_KEY: z.string().min(1, "REFRESH_TOKEN_SECRET_KEY is required"),
 });
