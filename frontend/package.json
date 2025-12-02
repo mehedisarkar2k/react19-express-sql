@@ -2,7 +2,9 @@
   "name": "frontend",
   "private": true,
   "type": "module",
+  "packageManager": "yarn@4.11.0",
   "scripts": {
+    "preinstall": "npx only-allow yarn",
     "dev": "vite --port 3000",
     "build": "vite build && tsc",
     "serve": "vite preview",

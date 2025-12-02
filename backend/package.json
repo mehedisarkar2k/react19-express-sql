@@ -3,6 +3,7 @@
   "packageManager": "yarn@4.11.0",
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow yarn",
     "run:mongo": "docker start mongodb 2>/dev/null || docker run -d -p 27017:27017 --name mongodb mongo:latest",
     "kill:mongo": "docker rm -f mongodb",
     "run:dev": "yarn run run:mongo && tsx --watch src/index.ts",
