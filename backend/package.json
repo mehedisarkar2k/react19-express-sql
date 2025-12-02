@@ -1,14 +1,19 @@
 {
   "name": "backend",
   "packageManager": "yarn@4.11.0",
+  "type": "module",
   "scripts": {
-    "run:mongo": "docker run -d -p 27017:27017 --name mongodb mongo:latest",
+    "run:mongo": "docker start mongodb 2>/dev/null || docker run -d -p 27017:27017 --name mongodb mongo:latest",
     "kill:mongo": "docker rm -f mongodb",
-    "run:dev": "yarn run run:mongo && tsx index.ts",
+    "run:dev": "yarn run run:mongo && tsx --watch src/index.ts",
     "start": "node index.js"
   },
   "devDependencies": {
+    "@types/express": "^5",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }
