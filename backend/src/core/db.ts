@@ -7,6 +7,12 @@ const pool = new Pool({
     user: ENV.DB_USER,
     password: ENV.DB_PASSWORD,
     database: ENV.DB_NAME,
+    ssl:
+        ENV.NODE_ENV === 'development'
+            ? { rejectUnauthorized: false }
+            : {
+                rejectUnauthorized: true,
+            },
 });
 
 export const DB_QUERY = async <T extends QueryResultRow = QueryResultRow>(
