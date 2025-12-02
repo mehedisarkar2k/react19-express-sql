@@ -4,7 +4,11 @@
   "scripts": {
     "run:mongo": "docker run -d -p 27017:27017 --name mongodb mongo:latest",
     "kill:mongo": "docker rm -f mongodb",
-    "run:dev": "",
+    "run:dev": "yarn run run:mongo && tsx index.ts",
     "start": "node index.js"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }
