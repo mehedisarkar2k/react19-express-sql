@@ -6,6 +6,13 @@
     "frontend",
     "backend"
   ],
+  "description": "A monorepo setup with React 19 frontend and Node.js backend with SQL database.",
+  "license": "MIT",
+  "author": {
+    "name": "Mehedi Hasan Sarkar",
+    "email": "mehedisarkar2k@gmail.com",
+    "url": "https://www.github.com/mehedisarkar2k"
+  },
   "scripts": {
     "dev": "yarn workspaces foreach -Apiv run dev",
     "dev:frontend": "yarn workspace frontend dev",
