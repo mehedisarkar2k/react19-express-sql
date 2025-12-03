@@ -4,6 +4,7 @@ import { User } from '../user/user.types';
 import { SendResponse } from '../../core';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
+import { ENV } from '../../config';
 
 const login = async (req: Request, res: Response) => {
     const payload = AuthZodSchema.LoginSchema.parse(req.body);
@@ -29,8 +30,8 @@ const login = async (req: Request, res: Response) => {
     // set refresh token in http only cookie
     res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: ENV.NODE_ENV === 'production',
+        sameSite: ENV.NODE_ENV === 'production' ? 'none' : 'lax',
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
 

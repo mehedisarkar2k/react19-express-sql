@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const LoginSchema = z.object({
-    email: z.string().email().optional(),
+    email: z.email().optional(),
     username: z.string().min(3).max(30).trim().optional(),
     password: z.string().min(6).max(100),
 }).refine(data => data.email || data.username, {
