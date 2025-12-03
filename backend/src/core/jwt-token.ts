@@ -1,16 +1,16 @@
-import { sign as JWTSign, verify as JWTVerify } from 'jsonwebtoken';
+import JWT from 'jsonwebtoken';
 import { ENV } from '../config';
 
-const sign = async (payload: Record<string, unknown>) => {
-    const token = JWTSign(payload, ENV.JWT_SECRET_KEY, {
+const sign = (payload: Record<string, unknown>) => {
+    const token = JWT.sign(payload, ENV.JWT_SECRET_KEY, {
         expiresIn: '1h',
     });
 
     return token;
 };
 
-const singRefreshToken = <T>(payload: T) => {
-    const token = JWTSign({ payload }, ENV.REFRESH_TOKEN_SECRET_KEY, {
+const singRefreshToken = async (payload: Record<string, unknown>) => {
+    const token = JWT.sign({ payload }, ENV.REFRESH_TOKEN_SECRET_KEY, {
         expiresIn: '30d',
     });
 
@@ -18,9 +18,16 @@ const singRefreshToken = <T>(payload: T) => {
     return token;
 };
 
+const generateTokens = async (payload: Record<string, unknown>) => {
+    const accessToken = sign(payload);
+    const refreshToken = await singRefreshToken(payload);
+
+    return { accessToken, refreshToken };
+}
+
 const verify = <T>(token: string): T => {
     try {
-        const decoded = JWTVerify(token, ENV.JWT_SECRET_KEY);
+        const decoded = JWT.verify(token, ENV.JWT_SECRET_KEY);
 
         return decoded as T;
     } catch (error) {
@@ -30,17 +37,17 @@ const verify = <T>(token: string): T => {
 
 const refreshToken = (refreshToken: string) => {
     try {
-        const decoded = JWTVerify(refreshToken, ENV.REFRESH_TOKEN_SECRET_KEY) as {
+        const decoded = JWT.verify(refreshToken, ENV.REFRESH_TOKEN_SECRET_KEY) as {
             payload: Record<string, unknown>;
         };
 
         // TODO: verify refresh token exists in DB and is still valid
 
-        const newAccessToken = JWTSign(decoded.payload, ENV.JWT_SECRET_KEY, {
+        const newAccessToken = JWT.sign(decoded.payload, ENV.JWT_SECRET_KEY, {
             expiresIn: '1h',
         });
 
-        const newRefreshToken = JWTSign(
+        const newRefreshToken = JWT.sign(
             { payload: decoded.payload },
             ENV.REFRESH_TOKEN_SECRET_KEY,
             {
@@ -64,4 +71,5 @@ export const JWTToken = {
     verify,
     singRefreshToken,
     refreshToken,
+    generateTokens
 };

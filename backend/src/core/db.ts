@@ -29,6 +29,7 @@ export const initDB = async () => {
         lastName VARCHAR(100),
         role VARCHAR(50) DEFAULT 'user',
         email VARCHAR(150) UNIQUE NOT NULL,
+        username VARCHAR(50) UNIQUE,
         password TEXT NOT NULL,
         age INT,
         phone VARCHAR(15),

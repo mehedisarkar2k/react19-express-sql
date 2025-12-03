@@ -1,5 +1,6 @@
 import { DB_QUERY } from '../../core';
 import { CreateUserInput } from './user.schema';
+import { User } from './user.types';
 
 const createUser = async (payload: CreateUserInput) => {
     const queryText =
@@ -14,6 +15,24 @@ const createUser = async (payload: CreateUserInput) => {
     return await DB_QUERY(queryText, queryParams);
 };
 
+const findUserByEmail = async (email: string) => {
+    const queryText = 'SELECT * FROM users WHERE email = $1';
+    const queryParams = [email];
+
+    const result = await DB_QUERY<User>(queryText, queryParams);
+    return result.rows[0];
+};
+
+const findUserByUsername = async (username: string) => {
+    const queryText = 'SELECT * FROM users WHERE username = $1';
+    const queryParams = [username];
+
+    const result = await DB_QUERY<User>(queryText, queryParams);
+    return result.rows[0];
+};
+
 export const UserService = {
     createUser,
+    findUserByEmail,
+    findUserByUsername,
 };
