@@ -8,6 +8,7 @@
     "kill:mongo": "docker rm -f mongodb",
     "dev": "(docker start mongodb 2>/dev/null || docker run -d -p 27017:27017 --name mongodb mongo:latest) && tsx --watch src/index.ts",
     "run:dev": "yarn dev",
+    "build": "tsc",
     "start": "node index.js"
   },
   "dependencies": {
