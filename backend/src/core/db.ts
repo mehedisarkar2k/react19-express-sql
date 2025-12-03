@@ -21,6 +21,7 @@ export const DB_QUERY = async <T extends QueryResultRow = QueryResultRow>(
 };
 
 export const initDB = async () => {
+    // Create users table if not exists
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users(
         id SERIAL PRIMARY KEY,
@@ -36,4 +37,17 @@ export const initDB = async () => {
         updated_at TIMESTAMP DEFAULT NOW()
         )
         `);
+
+    // sessions table for refresh tokens
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS sessions(
+        id VARCHAR(255) PRIMARY KEY,
+        user_id INT REFERENCES users(id) ON DELETE CASCADE,
+        refresh_token TEXT NOT NULL,
+        user_agent TEXT,
+        ip_address VARCHAR(45),
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+        )
+    `);
 };
