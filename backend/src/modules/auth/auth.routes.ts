@@ -8,4 +8,4 @@ const authRouter = Router()
 
 authRouter.post('/login', requestValidator(AuthZodSchema.LoginSchema), asyncHandler(AuthController.login))
 
-export { authRouter as AuthRouter }
+export default authRouter

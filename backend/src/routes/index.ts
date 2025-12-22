@@ -1,15 +1,19 @@
 import { Router } from "express";
-import { UserRouter, AuthRouter } from "../modules";
+import { modules } from "../modules";
 
 const appV1Router = Router();
 
 // welcome route
-appV1Router.get('/', (req, res) => {
+appV1Router.get('/', (_, res) => {
     res.status(200).json({ success: true, message: 'Welcome to API v1' });
 });
 
-appV1Router.use('/auth', AuthRouter);
-appV1Router.use('/user', UserRouter);
+console.log("\n=====================================")
+modules.forEach((module) => {
+    console.log("Registering module in routes(v1): ", module.path);
+    appV1Router.use(module.path, module.router);
+});
+console.log("=====================================\n")
 
 
 

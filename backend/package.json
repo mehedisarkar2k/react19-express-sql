@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "packageManager": "yarn@4.11.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "preinstall": "npx only-allow yarn",
     "dev": "tsx --watch src/index.ts",

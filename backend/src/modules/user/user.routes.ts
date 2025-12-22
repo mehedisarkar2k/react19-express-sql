@@ -12,4 +12,4 @@ userRouter.post(
     asyncHandler(UserController.createUser)
 );
 
-export { userRouter as UserRouter };
+export default userRouter;
