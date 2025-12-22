@@ -7,7 +7,6 @@ const pool = new Pool({
     user: ENV.DB_USER,
     password: ENV.DB_PASSWORD,
     database: ENV.DB_NAME,
-    options: '--search_path=public',
     ssl: {
         rejectUnauthorized: ENV.NODE_ENV !== 'development',
     },
