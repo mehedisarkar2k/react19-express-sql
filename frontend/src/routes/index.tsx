@@ -7,8 +7,7 @@ export const Route = createFileRoute('/')({
 })
 
 function App() {
-  const { data } = useHealthQuery()
-  console.log(data)
+  useHealthQuery()
 
   return (
     <div className="text-center">

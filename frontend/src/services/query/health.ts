@@ -5,4 +5,6 @@ import { healthApi } from "../api";
 export const useHealthQuery = () => useQuery({
     queryKey: queryKeys.health.all(),
     queryFn: () => healthApi.getHealth(),
+    refetchOnWindowFocus: false,
+    retry: 1,
 })
