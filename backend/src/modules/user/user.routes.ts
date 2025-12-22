@@ -12,4 +12,11 @@ userRouter.post(
     asyncHandler(UserController.createUser)
 );
 
+// check userName available
+userRouter.get(
+    '/check-username',
+    requestValidator(UserZodSchema.CheckUsernameSchema),
+    asyncHandler(UserController.checkUsernameAvailable)
+);
+
 export default userRouter;

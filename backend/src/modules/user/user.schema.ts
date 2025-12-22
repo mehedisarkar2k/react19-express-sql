@@ -9,6 +9,12 @@ const CreateUserSchema = z.object({
 });
 export type CreateUserInput = z.infer<typeof CreateUserSchema>;
 
+const CheckUsernameSchema = z.object({
+    username: z.string().min(3).max(30).trim(),
+});
+export type CheckUsernameInput = z.infer<typeof CheckUsernameSchema>;
+
 export const UserZodSchema = {
     CreateUserSchema,
+    CheckUsernameSchema,
 };

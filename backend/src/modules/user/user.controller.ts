@@ -29,6 +29,25 @@ const createUser = async (req: Request, res: Response) => {
     });
 };
 
+const checkUsernameAvailable = async (req: Request, res: Response) => {
+    const { username } = UserZodSchema.CheckUsernameSchema.parse(req.query);
+
+    const user = await UserService.findUserByUsername(username);
+
+    if (user) {
+        return SendResponse.badRequest({
+            res,
+            message: 'Username already exists',
+        });
+    }
+
+    return SendResponse.success({
+        res,
+        message: 'Username available',
+    });
+};
+
 export const UserController = {
     createUser,
+    checkUsernameAvailable,
 };
