@@ -1,6 +1,7 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import { appV1Router } from './routes';
 import { initDB, Logger, SendResponse } from './core';
+import { corsMiddleware } from './middleware';
 
 export const startServer = (app: Express) => {
     initDB().then(() => {
@@ -11,7 +12,7 @@ export const startServer = (app: Express) => {
     });
     // middleware
     app.use(express.json());
-
+    app.use(corsMiddleware);
     // routes
     app.get('/', (_, res) => {
         return SendResponse.success({ res, message: 'Welcome to the API' });

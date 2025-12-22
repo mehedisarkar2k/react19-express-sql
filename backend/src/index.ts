@@ -13,6 +13,8 @@ app.listen(PORT, (error) => {
         process.exit(1);
     }
 
-    Logger.info(`Server is running on  ${ENV.NODE_ENV === 'development' ? `🚀 http://localhost:${PORT}` : `port ${PORT}`}`);
+    Logger.info(
+        `Server is running on  ${ENV.NODE_ENV === 'development' ? `🚀 http://localhost:${PORT}` : `port ${PORT}`}`
+    );
     startServer(app);
 });

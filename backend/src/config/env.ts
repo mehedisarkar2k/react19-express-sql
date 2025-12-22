@@ -14,6 +14,7 @@ const env = {
     DB_NAME: process.env.DB_NAME,
     JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
     REFRESH_TOKEN_SECRET_KEY: process.env.REFRESH_TOKEN_SECRET_KEY,
+    CORS_ORIGIN: process.env.CORS_ORIGIN,
 }
 
 const ENV = EnvSchema.parse(env)

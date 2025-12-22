@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "argon2": "^0.44.0",
+    "cors": "^2.8.5",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@types/cors": "^2",
     "@types/express": "^5",
     "@types/jsonwebtoken": "^9",
     "@types/node": "^24.10.1",
