@@ -3774,6 +3774,7 @@ __metadata:
     tailwindcss: "npm:^4.0.6"
     tw-animate-css: "npm:^1.4.0"
     typescript: "npm:^5.7.2"
+    use-debounce: "npm:^10.0.6"
     vite: "npm:^7.1.7"
     vitest: "npm:^3.0.5"
     web-vitals: "npm:^5.1.0"
@@ -5967,6 +5968,15 @@ __metadata:
   bin:
     update-browserslist-db: cli.js
   checksum: 10c0/db0c9aaecf1258a6acda5e937fc27a7996ccca7a7580a1b4aa8bba6a9b0e283e5e65c49ebbd74ec29288ef083f1b88d4da13e3d4d326c1e5fc55bf72d7390702
+  languageName: node
+  linkType: hard
+
+"use-debounce@npm:^10.0.6":
+  version: 10.0.6
+  resolution: "use-debounce@npm:10.0.6"
+  peerDependencies:
+    react: "*"
+  checksum: 10c0/f0745de48fc344e6f90ea24384f3c79bf0733d06649827241135847abd67ee8db32f523d490c3276bce9f5a6867194ab1c0187bf6b84cabe1dd679037f4a527e
   languageName: node
   linkType: hard
 

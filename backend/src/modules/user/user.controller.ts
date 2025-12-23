@@ -30,9 +30,18 @@ const createUser = async (req: Request, res: Response) => {
 };
 
 const checkUsernameAvailable = async (req: Request, res: Response) => {
-    const { username } = UserZodSchema.CheckUsernameSchema.parse(req.query);
+    const { username } = UserZodSchema.CheckUsernameSchema.parse(req).query;
+
+    // check if username contains space
+    if (username.includes(' ')) {
+        return SendResponse.badRequest({
+            res,
+            message: 'Username should not contain space',
+        });
+    }
 
     const user = await UserService.findUserByUsername(username);
+
 
     if (user) {
         return SendResponse.badRequest({

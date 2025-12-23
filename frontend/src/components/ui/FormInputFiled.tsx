@@ -1,25 +1,29 @@
 import type { AnyFieldApi } from '@tanstack/react-form'
 import { Eye, EyeOff } from 'lucide-react'
-import { type ComponentProps, type FC, useState } from 'react'
+import { type ComponentProps, type FC, type ReactNode, useState } from 'react'
 import { Field, FieldDescription, FieldLabel } from './field'
 import { Input } from './input'
 
 const FormInputField: FC<
-  { field?: AnyFieldApi; label: string } & ComponentProps<'input'>
-> = ({ field, ...props }) => {
+  { field?: AnyFieldApi; label: ReactNode } & ComponentProps<'input'>
+> = ({ field, label, ...props }) => {
   const [isVisible, setIsVisible] = useState(false)
   const isPassword = props.type === 'password'
   const inputType = isPassword ? (isVisible ? 'text' : 'password') : props.type
 
   return (
     <Field>
-      <FieldLabel htmlFor={field?.name}>{props.label}</FieldLabel>
+      <FieldLabel htmlFor={field?.name}>{label}</FieldLabel>
       <div className="relative">
         <Input
           name={field?.name}
-          value={field?.state.value}
+          value={field?.state.value ?? ''}
           onBlur={field?.handleBlur}
-          onChange={(e) => field?.handleChange(e.target.value)}
+          onChange={
+            props.onChange
+              ? props.onChange
+              : (e) => field?.handleChange(e.target.value)
+          }
           placeholder={
             props.placeholder ?? (isPassword ? '••••••••' : undefined)
           }
