@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Field, FieldDescription, FieldGroup } from '@/components/ui/field'
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { cn } from '@/lib/utils'
 import type { ComponentProps } from 'react'
 import {
@@ -11,9 +11,13 @@ import {
 } from '@tanstack/react-form'
 import FormInputField from '@/components/ui/FormInputFiled'
 import { RegisterUserSchema, type RegisterUser } from '@/types'
-import { useCheckUsernameAvailableQuery } from '@/services'
+import {
+  useCheckUsernameAvailableQuery,
+  useRegisterUserMutation,
+} from '@/services'
 import { Check, Loader2, X } from 'lucide-react'
 import { useDebounce } from 'use-debounce'
+import { toast } from 'sonner'
 
 const defaultUser: RegisterUser = {
   firstName: '',
@@ -32,12 +36,33 @@ const formOpts = formOptions({
 })
 
 export function UserRegisterForm({ className }: ComponentProps<'form'>) {
+  const navigate = useNavigate()
+  const { mutateAsync: registerUser } = useRegisterUserMutation()
+
   const form = useForm({
     ...formOpts,
 
     onSubmit: async ({ value }) => {
-      // Do something with form data
-      console.log(value)
+      const promise = registerUser(value)
+      toast.promise(promise, {
+        loading: 'Creating your account...',
+        success: () => {
+          navigate({ to: '/login' })
+          return 'Account created successfully! Please login.'
+        },
+        error: (err) => {
+          console.error('Failed to register:', err)
+          return (
+            err?.response?.data?.message ||
+            'Failed to create account. Please try again.'
+          )
+        },
+      })
+      try {
+        await promise
+      } catch (e) {
+        // Error is handled by toast
+      }
     },
   })
 
@@ -149,7 +174,16 @@ export function UserRegisterForm({ className }: ComponentProps<'form'>) {
         />
 
         <Field>
-          <Button type="submit">Register</Button>
+          <Button type="submit" disabled={form.state.isSubmitting}>
+            {form.state.isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 size-4 animate-spin" />
+                Registering...
+              </>
+            ) : (
+              'Register'
+            )}
+          </Button>
         </Field>
 
         <FieldDescription className="text-center">

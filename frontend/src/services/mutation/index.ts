@@ -1,1 +1,1 @@
-export const DUMMY_MUTATION = () => { }
+export * from './user'
