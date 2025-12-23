@@ -4,11 +4,12 @@ import { User } from './user.types';
 
 const createUser = async (payload: CreateUserInput) => {
     const queryText =
-        'INSERT INTO users (firstName, lastName, email, password) VALUES ($1, $2, $3, $4) RETURNING id, firstName, lastName, email, role, created_at';
+        'INSERT INTO users (firstName, lastName, email, username, password) VALUES ($1, $2, $3, $4, $5) RETURNING id, firstName, lastName, email, username, role, created_at';
     const queryParams = [
         payload.firstName,
         payload.lastName || null,
         payload.email,
+        payload.username || null,
         payload.password,
     ];
 

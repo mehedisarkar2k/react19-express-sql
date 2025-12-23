@@ -44,12 +44,17 @@ export function UserRegisterForm({ className }: ComponentProps<'form'>) {
 
     onSubmit: async ({ value }) => {
       const promise = registerUser(value)
+
       toast.promise(promise, {
         loading: 'Creating your account...',
+
         success: () => {
+          form.reset()
+
           navigate({ to: '/login' })
           return 'Account created successfully! Please login.'
         },
+
         error: (err) => {
           console.error('Failed to register:', err)
           return (
@@ -61,7 +66,7 @@ export function UserRegisterForm({ className }: ComponentProps<'form'>) {
       try {
         await promise
       } catch (e) {
-        // Error is handled by toast
+        toast.error('Failed to create account. Please try again.')
       }
     },
   })
